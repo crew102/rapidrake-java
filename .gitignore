@@ -1,0 +1,7 @@
+target/
+model-bin/
+.classpath
+.project
+.settings/
+.Rproj.user
+doc/
