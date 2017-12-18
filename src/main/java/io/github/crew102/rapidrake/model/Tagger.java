@@ -6,7 +6,7 @@ import opennlp.tools.postag.POSModel;
 import opennlp.tools.postag.POSTaggerME;
 
 /**
- * A wrapper around  opennlp.tools.postag.POSTaggerME.
+ * A wrapper around opennlp.tools.postag.POSTaggerME.
  */
 public class Tagger {
 	
@@ -20,6 +20,11 @@ public class Tagger {
 		this.inputString = inputString;
 	}
 	
+	/**
+	 * Get the POS tagger.
+	 * @throws java.io.IOException if <code>inputString</code> is invalid
+	 * @return a <code>opennlp.tools.postag.POSTaggerME</code>
+	 */
 	public POSTaggerME getPosTagger() throws java.io.IOException {
 		InputStream modelIn = null;
 		POSModel modelIn2 = null;

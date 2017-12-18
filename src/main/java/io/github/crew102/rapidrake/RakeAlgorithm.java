@@ -16,12 +16,12 @@ import opennlp.tools.tokenize.WhitespaceTokenizer;
  * The logic/implementation of the Rapid Automatic Keyword Extraction (RAKE) algorithm. The class's API includes:
  * 
  * <ul>
- * <li> A constructor which initializes the algorithm's parameters (stored in a {@link RakeParams} object), a POS 
- * 		tagger, and a sentence detector
+ * <li> A constructor which initializes the algorithm's parameters (stored in a {@link RakeParams} object) and  sets the 
+ * 		URLs that point to a POS tagging and sentence detection model
  * <li> The {@link rake} method, which runs RAKE on a string
  * <li> The {@link getResult} method, which takes an array of {@link Keyword} objects and converts their relevant 
  * 		instance variables to primitive arrays (i.e., to a {@link Result}). This allows the results to be easily pulled 
- * 		out on the R side. 
+ * 		out on the R side.
  * </ul> 
  * 
  * @author Chris Baker
@@ -40,6 +40,7 @@ public class RakeAlgorithm {
      * @param taggerModelUrl the URL of the trained POS tagging model
      * @param sentDectModelUrl the URL of the trained sentence detection model
      * @see RakeParams
+     * @throws java.io.IOException if either of the URL parameters are invalid
      */
 	public RakeAlgorithm(RakeParams rakeParams, String taggerModelUrl, String sentDectModelUrl) throws java.io.IOException {
 		RakeAlgorithm.rakeParams = rakeParams;
@@ -85,7 +86,7 @@ public class RakeAlgorithm {
 				String tag = tags[i].trim();
 				
 				if (token.matches("\\p{Punct}")) {
-					// if the token is punctuation char, leave it
+					// if the token is a punctuation char, leave it
 				} else if (rakeParams.getStopPOS().contains(tag) || token.length() < rakeParams.getWordMinChar() || 
 						rakeParams.getStopWords().contains(token) || !anyWordChar.matcher(token).find()) {
 					// replace unwanted tokens with a period, which we can be confident will be used as a delimiter

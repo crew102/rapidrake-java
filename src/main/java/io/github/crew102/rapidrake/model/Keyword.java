@@ -32,7 +32,7 @@ public class Keyword {
 	/**
 	 * Constructor.
 	 * 
-	 * @param keyString the full form (i.e., not tokenized) version of the keyword (e.g., "good dogs")
+	 * @param keyString the full form (i.e., not tokenized) of the keyword (e.g., "good dogs")
 	 * @param keyStringAry the tokenized version of the keyword (e.g., {"good", "dogs"})
 	 * @param keyStemmedString the stemmed version of <code>keyString</code> (e.g., "good dogs")
 	 * @param keyStemmedStringAry the stemmed version of <code>keyStringAry</code> (e.g., {"good", "dog"})

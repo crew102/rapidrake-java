@@ -20,6 +20,11 @@ public class SentDetector {
 		this.inputString = inputString;
 	}
 	
+	/**
+	 * Get the sentence detector.
+	 * @throws java.io.IOException if <code>inputString</code> is invalid
+	 * @return a <code>opennlp.tools.sentdetect.SentenceDetectorME</code>
+	 */
 	public SentenceDetectorME getSentDetector() throws java.io.IOException {
 		InputStream modelIn = null;
 		SentenceModel modelIn2 = null;
