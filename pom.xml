@@ -1,9 +1,26 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>io.github.crew102</groupId>
+	<packaging>jar</packaging>
 	<artifactId>rapidrake</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<name>${project.groupId}:${project.artifactId}</name>
+	<version>0.0.1-SNAPSHOT</version>
+	<description>A fast version of the Rapid Automatic Keyword Extraction (RAKE) algorithm</description>
+    <url>https://github.com/crew102/rapidrake-java</url>
+	
+	<distributionManagement>
+  		<snapshotRepository>
+		    <id>ossrh</id>
+		    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+  		</snapshotRepository>
+  		<repository>
+    		<id>ossrh</id>
+    		<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+  		</repository>
+	</distributionManagement>
+	
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
@@ -17,8 +34,10 @@
 		  <version>1.8.1</version>
 		</dependency>
 	</dependencies>
+	
 	<build>
 		<plugins>
+		
 			<plugin>
 				<artifactId>maven-dependency-plugin</artifactId>
 				<executions>
@@ -34,6 +53,84 @@
 					</execution>
 				</executions>
 			</plugin>
+			
+			<plugin>
+		      <groupId>org.apache.maven.plugins</groupId>
+		      <artifactId>maven-source-plugin</artifactId>
+		      <version>2.2.1</version>
+		      <executions>
+		        <execution>
+		          <id>attach-sources</id>
+		          <goals>
+		            <goal>jar-no-fork</goal>
+		          </goals>
+		        </execution>
+		      </executions>
+    		</plugin>
+    		
+		    <plugin>
+		      <groupId>org.apache.maven.plugins</groupId>
+		      <artifactId>maven-javadoc-plugin</artifactId>
+		      <version>2.9.1</version>
+		      <executions>
+		        <execution>
+		          <id>attach-javadocs</id>
+		          <goals>
+		            <goal>jar</goal>
+		          </goals>
+		        </execution>
+		      </executions>
+		    </plugin>
+		    
+			<plugin>
+		      <groupId>org.apache.maven.plugins</groupId>
+		      <artifactId>maven-gpg-plugin</artifactId>
+		      <version>1.5</version>
+		      <executions>
+		        <execution>
+		          <id>sign-artifacts</id>
+		          <phase>verify</phase>
+		          <goals>
+		            <goal>sign</goal>
+		          </goals>
+		        </execution>
+		      </executions>
+		    </plugin>
+		    
+		    <plugin>
+			  <groupId>org.sonatype.plugins</groupId>
+			  <artifactId>nexus-staging-maven-plugin</artifactId>
+			  <version>1.6.7</version>
+			  <extensions>true</extensions>
+			  <configuration>
+			     <serverId>ossrh</serverId>
+			     <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+			     <autoReleaseAfterClose>true</autoReleaseAfterClose>
+			  </configuration>
+			</plugin>
+			
 		</plugins>
 	</build>
+	
+	<licenses>
+	  <license>
+	    <name>MIT License</name>
+	    <url>http://www.opensource.org/licenses/mit-license.php</url>
+	  </license>
+	</licenses>
+	
+	<developers>
+      <developer>
+        <id>crew102</id>
+        <name>Christopher Baker</name>
+        <email>chriscrewbaker@gmail.com</email>
+      </developer>
+    </developers>
+
+    <scm>
+     <connection>scm:git:git://github.com/crew102/rapidrake-java.git</connection>
+     <developerConnection>scm:git:ssh://github.com:crew102/rapidrake-java.git</developerConnection>
+     <url>http://github.com/crew102/rapidrake-java/tree/master</url>
+    </scm>
+	
 </project>
