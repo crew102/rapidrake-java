@@ -8,3 +8,6 @@ test:
 
 clean:
 	rm -rf target
+	
+deploy:
+	mvn clean install -P deploy-env

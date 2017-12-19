@@ -82,21 +82,6 @@
 		      </executions>
 		    </plugin>
 		    
-			<plugin>
-		      <groupId>org.apache.maven.plugins</groupId>
-		      <artifactId>maven-gpg-plugin</artifactId>
-		      <version>1.5</version>
-		      <executions>
-		        <execution>
-		          <id>sign-artifacts</id>
-		          <phase>verify</phase>
-		          <goals>
-		            <goal>sign</goal>
-		          </goals>
-		        </execution>
-		      </executions>
-		    </plugin>
-		    
 		    <plugin>
 			  <groupId>org.sonatype.plugins</groupId>
 			  <artifactId>nexus-staging-maven-plugin</artifactId>
@@ -132,5 +117,29 @@
      <developerConnection>scm:git:ssh://github.com:crew102/rapidrake-java.git</developerConnection>
      <url>http://github.com/crew102/rapidrake-java/tree/master</url>
     </scm>
+    
+    <profiles>
+      <profile>
+    	<id>deploy-env</id>
+		<build>
+			<plugins>
+				<plugin>
+			      <groupId>org.apache.maven.plugins</groupId>
+			      <artifactId>maven-gpg-plugin</artifactId>
+			      <version>1.5</version>
+			      <executions>
+			        <execution>
+			          <id>sign-artifacts</id>
+			          <phase>verify</phase>
+			          <goals>
+			            <goal>sign</goal>
+			          </goals>
+			        </execution>
+			      </executions>
+			    </plugin>
+			</plugins>
+		</build>
+  	  </profile>
+    </profiles>
 	
 </project>
