@@ -28,9 +28,9 @@ import opennlp.tools.tokenize.WhitespaceTokenizer;
  */
 public class RakeAlgorithm {
 	
-	private static RakeParams rakeParams;
-	private static POSTaggerME tagger;
-	private static SentenceDetectorME sentDetector;
+	private final RakeParams rakeParams;
+	private final POSTaggerME tagger;
+	private final SentenceDetectorME sentDetector;
 	private static final SnowballStemmer stemmer = new SnowballStemmer(SnowballStemmer.ALGORITHM.ENGLISH);
 	
     /**
@@ -43,9 +43,9 @@ public class RakeAlgorithm {
      * @throws java.io.IOException if either of the URL parameters are invalid
      */
 	public RakeAlgorithm(RakeParams rakeParams, String taggerModelUrl, String sentDectModelUrl) throws java.io.IOException {
-		RakeAlgorithm.rakeParams = rakeParams;
-		RakeAlgorithm.tagger = new Tagger(taggerModelUrl).getPosTagger();
-		RakeAlgorithm.sentDetector = new SentDetector(sentDectModelUrl).getSentDetector();
+		this.rakeParams = rakeParams;
+		this.tagger = new Tagger(taggerModelUrl).getPosTagger();
+		this.sentDetector = new SentDetector(sentDectModelUrl).getSentDetector();
 	}
 	
 	// add constructor that doesn't require urls
