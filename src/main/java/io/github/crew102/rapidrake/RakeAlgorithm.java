@@ -212,18 +212,23 @@ public class RakeAlgorithm {
 	 */
 	public Result getResult(ArrayList<Keyword> keywords) {
 		
-		String[] full = new String[keywords.size()];
+		ArrayList<String> full = new ArrayList<String>();
 		String[] stemmed = new String[keywords.size()];
 		float[] scores = new float[keywords.size()];
 		
 		for (int i = 0; i < keywords.size(); i++) {
 			Keyword oneKey = keywords.get(i);
-			full[i] = oneKey.getKeyString();
+			String oneStringKeyword = oneKey.getKeyString();
+			if (full.contains(oneStringKeyword)) continue;
+			full.add(oneStringKeyword);
 			stemmed[i] = oneKey.getStemmedString();
 			scores[i] = oneKey.getScore();			
 		}
 		
-		return new Result(full, stemmed, scores);
+		String[] keywordStringRes = new String[full.size()];
+		keywordStringRes = full.toArray(keywordStringRes);
+		
+		return new Result(keywordStringRes, stemmed, scores);
 	}
 	
 }
