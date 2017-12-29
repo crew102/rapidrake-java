@@ -1,5 +1,7 @@
 package io.github.crew102.rapidrake.model;
 
+import java.util.Arrays;
+
 /**
  * A data object containing the results of running RAKE on a single document. After instantiating a Result, we pass a 
  * reference to the object to R, which then calls the object's three getters to pull out the various pieces of data as 
@@ -34,4 +36,20 @@ public class Result {
 		return scores;
 	}
 	
+
+	/**
+	* Return a description of the Result. The Result is shown in the following format:
+	* "[keyword1 (score of keyword1), keyword2 (score of keyword2)].
+	*/
+	@Override 
+	public String toString() {
+		
+		String[] keyScore = new String[fullKeywords.length];
+		
+		for (int i = 0; i < fullKeywords.length; i++) {
+			keyScore[i] = fullKeywords[i] + " (" + String.valueOf(scores[i]) + ")";
+		}
+		return Arrays.toString(keyScore);
+	}
+
 }
