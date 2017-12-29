@@ -1,4 +1,4 @@
-package io.github.crew102.rapidrake.model;
+package io.github.crew102.rapidrake.opennlpUtils;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
