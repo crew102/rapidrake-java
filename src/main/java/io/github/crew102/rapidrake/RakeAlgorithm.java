@@ -19,8 +19,8 @@ import opennlp.tools.tokenize.WhitespaceTokenizer;
  * The logic/implementation of the Rapid Automatic Keyword Extraction (RAKE) algorithm. The class's API includes:
  * 
  * <ul>
- * <li> A constructor which initializes the algorithm's parameters (stored in a {@link RakeParams} object) and  sets the 
- * 		URLs that point to a POS tagging and sentence detection model
+ * <li> A constructor which initializes the algorithm's parameters (stored in a {@link RakeParams} object) as well as 
+ * 		the POS tagging and sentence detection models
  * <li> The {@link rake} method, which runs RAKE on a string
  * <li> The {@link getResult} method, which takes an array of {@link Keyword} objects and converts their relevant 
  * 		instance variables to primitive arrays (i.e., to a {@link Result}). This allows the results to be easily pulled 
@@ -212,23 +212,18 @@ public class RakeAlgorithm {
 	 */
 	public Result getResult(ArrayList<Keyword> keywords) {
 		
-		ArrayList<String> full = new ArrayList<String>();
+		String[] full = new String[keywords.size()];
 		String[] stemmed = new String[keywords.size()];
 		float[] scores = new float[keywords.size()];
 		
 		for (int i = 0; i < keywords.size(); i++) {
 			Keyword oneKey = keywords.get(i);
-			String oneStringKeyword = oneKey.getKeyString();
-			if (full.contains(oneStringKeyword)) continue;
-			full.add(oneStringKeyword);
+			full[i] = oneKey.getKeyString();
 			stemmed[i] = oneKey.getStemmedString();
 			scores[i] = oneKey.getScore();			
 		}
 		
-		String[] keywordStringRes = new String[full.size()];
-		keywordStringRes = full.toArray(keywordStringRes);
-		
-		return new Result(keywordStringRes, stemmed, scores);
+		return new Result(full, stemmed, scores);
 	}
 	
 }

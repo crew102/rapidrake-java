@@ -1,6 +1,7 @@
 package io.github.crew102.rapidrake.model;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -53,6 +54,37 @@ public class Result {
 		}
 		
 		return Arrays.toString(keyScore);
+	}
+	
+	/**
+	* Remove duplicate keywords.  
+	*/
+	public Result distinct() {
+				
+		ArrayList<String> fullKeywordsListOut = new ArrayList<String>();
+		ArrayList<String> stemmedKeyListOut = new ArrayList<String>();
+		ArrayList<Float> scoresListOut = new ArrayList<Float>();
+				
+		for (int i = 0; i < fullKeywords.length; i++) {
+			String oneKey = fullKeywords[i];
+			if (!fullKeywordsListOut.contains(oneKey)) {
+				fullKeywordsListOut.add(oneKey);
+				stemmedKeyListOut.add(stemmedKeywords[i]);
+				scoresListOut.add(scores[i]);
+			}		
+		}
+
+		this.fullKeywords = fullKeywordsListOut.toArray(new String[fullKeywordsListOut.size()]);
+		this.stemmedKeywords = stemmedKeyListOut.toArray(new String[stemmedKeyListOut.size()]);
+		
+		float[] scores = new float[scoresListOut.size()];
+		
+		for (int i = 0; i < scores.length; i ++) {
+			scores[i] = scoresListOut.get(i);
+		}
+		this.scores = scores;
+		
+		return this;
 	}
 
 }
