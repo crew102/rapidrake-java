@@ -1,5 +1,6 @@
 package io.github.crew102.rapidrake.model;
 
+import java.text.DecimalFormat;
 import java.util.Arrays;
 
 /**
@@ -44,11 +45,13 @@ public class Result {
 	@Override 
 	public String toString() {
 		
+		DecimalFormat dFormat = new DecimalFormat("###.##");
 		String[] keyScore = new String[fullKeywords.length];
 		
 		for (int i = 0; i < fullKeywords.length; i++) {
-			keyScore[i] = fullKeywords[i] + " (" + String.valueOf(scores[i]) + ")";
+			keyScore[i] = fullKeywords[i] + " (" + dFormat.format(scores[i]) + ")";
 		}
+		
 		return Arrays.toString(keyScore);
 	}
 
