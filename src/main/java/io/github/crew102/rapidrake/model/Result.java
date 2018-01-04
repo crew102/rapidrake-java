@@ -57,7 +57,8 @@ public class Result {
 	}
 	
 	/**
-	* Remove duplicate keywords.  
+	* Remove duplicate keywords.
+	* @return A Result object with duplicate keywords removed 
 	*/
 	public Result distinct() {
 				
