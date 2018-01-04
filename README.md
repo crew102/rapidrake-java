@@ -44,8 +44,8 @@ public class Example {
 		RakeParams params = new RakeParams(stopWords, stopPOS, minWordChar, shouldStem, phraseDelims);
 		
 		// Create a RakeAlgorithm object
-		String POStaggerURL = "model-bin/en-pos-maxent.bin"; // The URL of your POS tagging model
-		String SentDetecURL = "model-bin/en-sent.bin"; // The URL of your sentence detection model
+		String POStaggerURL = "model-bin/en-pos-maxent.bin"; // The path to your POS tagging model
+		String SentDetecURL = "model-bin/en-sent.bin"; // The path to your sentence detection model
 		RakeAlgorithm rakeAlg = new RakeAlgorithm(params, POStaggerURL, SentDetecURL);
 		
 		// Call the rake method
