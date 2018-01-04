@@ -6,7 +6,7 @@
 	<packaging>jar</packaging>
 	<artifactId>rapidrake</artifactId>
 	<name>${project.groupId}:${project.artifactId}</name>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.1.0</version>
 	<description>A fast version of the Rapid Automatic Keyword Extraction (RAKE) algorithm</description>
     <url>https://github.com/crew102/rapidrake-java</url>
 	
