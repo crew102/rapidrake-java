@@ -11,13 +11,18 @@ import opennlp.tools.sentdetect.SentenceDetectorME;
 public class SentDetector {
 	
 	private String inputString;
-	
+	private InputStream input;
+
 	/**
 	 * Constructor.
 	 * @param inputString the URL of a sentence detection model
 	 */
 	public SentDetector(String inputString) {
 		this.inputString = inputString;
+	}
+
+	public SentDetector(InputStream inputString) {
+		this.input = inputString;
 	}
 	
 	/**
@@ -29,7 +34,10 @@ public class SentDetector {
 		InputStream modelIn = null;
 		SentenceModel modelIn2 = null;
 		try {
-			modelIn = new FileInputStream(inputString);
+			if(input == null) {
+				modelIn = new FileInputStream(inputString);
+			}else
+				modelIn = input;
 			modelIn2 = new SentenceModel(modelIn);
 		} catch(java.io.IOException ex) {
 			throw new java.io.IOException("Couldn't find sentence detector model based on URL", ex);

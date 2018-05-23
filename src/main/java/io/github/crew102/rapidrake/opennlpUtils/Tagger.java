@@ -10,8 +10,9 @@ import opennlp.tools.postag.POSTaggerME;
  */
 public class Tagger {
 	
-	private String inputString;
-	
+	private String inputString = null;
+	private InputStream input = null;
+
 	/**
 	 * Constructor.
 	 * @param inputString the URL of a POS tagging model
@@ -19,7 +20,11 @@ public class Tagger {
 	public Tagger(String inputString) {
 		this.inputString = inputString;
 	}
-	
+
+	public Tagger(InputStream inputString) {
+		this.input = inputString;
+	}
+
 	/**
 	 * Get the POS tagger.
 	 * @throws java.io.IOException if <code>inputString</code> is invalid
@@ -29,7 +34,11 @@ public class Tagger {
 		InputStream modelIn = null;
 		POSModel modelIn2 = null;
 		try {
-			modelIn = new FileInputStream(inputString);
+			if(input == null) {
+				modelIn = new FileInputStream(inputString);
+			}else
+				modelIn = input;
+
 			modelIn2 = new POSModel(modelIn);
 		} catch(java.io.IOException ex) {
 			throw new java.io.IOException("Couldn't find POS model based on URL", ex);

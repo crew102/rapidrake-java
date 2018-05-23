@@ -1,5 +1,6 @@
 package io.github.crew102.rapidrake;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -50,7 +51,13 @@ public class RakeAlgorithm {
 		this.tagger = new Tagger(taggerModelUrl).getPosTagger();
 		this.sentDetector = new SentDetector(sentDectModelUrl).getSentDetector();
 	}
-	
+
+	public RakeAlgorithm(RakeParams rakeParams, InputStream taggerModelUrl, InputStream sentDectModelUrl) throws java.io.IOException {
+		this.rakeParams = rakeParams;
+		this.tagger = new Tagger(taggerModelUrl).getPosTagger();
+		this.sentDetector = new SentDetector(sentDectModelUrl).getSentDetector();
+	}
+
 	// add constructor that doesn't require urls
 	
     /**
