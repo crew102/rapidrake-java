@@ -17,7 +17,7 @@ Assuming you are using Maven, follow these two steps to use `rakidrake` in your 
 <dependency>
     <groupId>io.github.crew102</groupId>
     <artifactId>rapidrake</artifactId>
-    <version>0.1.0</version>
+    <version>0.1.3</version>
 </dependency>
 ```
 
