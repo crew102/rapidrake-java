@@ -52,13 +52,20 @@ public class RakeAlgorithm {
 		this.sentDetector = new SentDetector(sentDectModelUrl).getSentDetector();
 	}
 
-	public RakeAlgorithm(RakeParams rakeParams, InputStream taggerModelUrl, InputStream sentDectModelUrl) throws java.io.IOException {
+  /**
+   * Constructor.
+   *
+   * @param rakeParams the parameters that RAKE will use
+   * @param taggerStream the input stream of the POS tagging model
+   * @param sentDectStream the input stream of the sentence detection model
+   * @see RakeParams
+   * @throws java.io.IOException if either of the input streams are invalid
+   */
+	public RakeAlgorithm(RakeParams rakeParams, InputStream taggerStream, InputStream sentDectStream) throws java.io.IOException {
 		this.rakeParams = rakeParams;
-		this.tagger = new Tagger(taggerModelUrl).getPosTagger();
-		this.sentDetector = new SentDetector(sentDectModelUrl).getSentDetector();
+		this.tagger = new Tagger(taggerStream).getPosTagger();
+		this.sentDetector = new SentDetector(sentDectStream).getSentDetector();
 	}
-
-	// add constructor that doesn't require urls
 	
     /**
      * Run RAKE on a single string.
@@ -214,8 +221,8 @@ public class RakeAlgorithm {
 	 * 
 	 * @param keywords a list of extracted keywords
 	 * @return A data object containing the results of RAKE
-     * @see Keyword
-     * @see Result
+   * @see Keyword
+   * @see Result
 	 */
 	public Result getResult(ArrayList<Keyword> keywords) {
 		

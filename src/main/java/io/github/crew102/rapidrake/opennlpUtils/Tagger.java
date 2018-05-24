@@ -10,48 +10,52 @@ import opennlp.tools.postag.POSTaggerME;
  */
 public class Tagger {
 	
-	private String inputString = null;
-	private InputStream input = null;
+	private String taggerModelUrl;
+	private InputStream taggerStream;
 
 	/**
 	 * Constructor.
-	 * @param inputString the URL of a POS tagging model
+	 * @param taggerModelUrl the URL of a POS tagging model
 	 */
-	public Tagger(String inputString) {
-		this.inputString = inputString;
+	public Tagger(String taggerModelUrl) {
+		this.taggerModelUrl = taggerModelUrl;
 	}
 
-	public Tagger(InputStream inputString) {
-		this.input = inputString;
+	 /**
+   * Constructor.
+   * @param taggerStream the input stream of the POS tagging model
+   */
+	public Tagger(InputStream taggerStream) {
+		this.taggerStream = taggerStream;
 	}
 
 	/**
 	 * Get the POS tagger.
-	 * @throws java.io.IOException if <code>inputString</code> is invalid
+	 * @throws java.io.IOException if <code>inputString</code> or <code>taggerStream</code> is invalid
 	 * @return a <code>opennlp.tools.postag.POSTaggerME</code>
 	 */
 	public POSTaggerME getPosTagger() throws java.io.IOException {
-		InputStream modelIn = null;
-		POSModel modelIn2 = null;
+	  
+		InputStream inStream = taggerStream;
+		POSModel modelIn;
+		
 		try {
-			if(input == null) {
-				modelIn = new FileInputStream(inputString);
-			}else
-				modelIn = input;
-
-			modelIn2 = new POSModel(modelIn);
+			if(taggerModelUrl != null) {
+			  inStream = new FileInputStream(taggerModelUrl);
+			}
+			modelIn = new POSModel(inStream);
 		} catch(java.io.IOException ex) {
 			throw new java.io.IOException("Couldn't find POS model based on URL", ex);
 		} finally {
-			if (modelIn != null) {
+			if (inStream != null) {
 				try {
-					modelIn.close();
+				  inStream.close();
 				} catch(java.io.IOException ex2) {
 					throw new java.io.IOException(ex2);
 				}
 			}
 		}
-		return new POSTaggerME(modelIn2);
+		return new POSTaggerME(modelIn);
 	}
 		
 }
