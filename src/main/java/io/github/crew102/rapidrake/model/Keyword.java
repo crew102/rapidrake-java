@@ -52,7 +52,7 @@ public class Keyword {
    * Sum the scores of each token belonging to a given keyword.
    * 
    * @param scoreVec a document-level collection of key-value pairs, where the keys are the distinct tokens across all 
-   *      keywords and the values are the document-level scores that are associated with them
+   *        keywords and the values are the document-level scores associated with them
    * @param rakeParams the parameters that RAKE will use
    * @see RakeParams
    */

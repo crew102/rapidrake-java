@@ -9,7 +9,7 @@ rapidrake
 Installation
 ------------
 
-Assuming you are using Maven, follow these two steps to use `rakidrake` in your Java project:
+Assuming you're using Maven, follow these two steps to use `rakidrake` in your Java project:
 
 1. Include a dependency on `rapidrake` in your POM:
 
@@ -21,7 +21,7 @@ Assuming you are using Maven, follow these two steps to use `rakidrake` in your 
 </dependency>
 ```
 
-2. Download the `opennlp` trained models for sentence detection and part-of-speech tagging. You can find these two models (trained on various languages) on [opennlp's model page](http://opennlp.sourceforge.net/models-1.5/). For example, you could use the English versions of the [sentence detection](http://opennlp.sourceforge.net/models-1.5/en-sent.bin) and [POS-tagger](http://opennlp.sourceforge.net/models-1.5/en-pos-maxent.bin) models. You'll specify the file paths to these models when you initialize a `RakeAlgorithm` object (see below for example).
+2. Download the `opennlp` trained models for sentence detection and part-of-speech tagging. You can find these two models (trained on various languages) on [opennlp's model page](http://opennlp.sourceforge.net/models-1.5/). For example, you could use the English versions of the [sentence detection](http://opennlp.sourceforge.net/models-1.5/en-sent.bin) and [POS-tagger](http://opennlp.sourceforge.net/models-1.5/en-pos-maxent.bin) models. You'll specify the file paths to these models when you instantiate a `RakeAlgorithm` object (see below for example).
 
 Basic usage
 ------------
@@ -36,7 +36,7 @@ public class Example {
 
   public static void main(String[] args) throws java.io.IOException {
     
-    // Create a parameter object. See the RakeParams docs for details.
+    // Create an object to hold algorithm parameters
     String[] stopWords = new SmartWords().getSmartWords(); 
     String[] stopPOS = {"VB", "VBD", "VBG", "VBN", "VBP", "VBZ"}; 
     int minWordChar = 1;

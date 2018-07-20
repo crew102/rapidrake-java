@@ -15,6 +15,7 @@ public class SentDetector {
 
   /**
    * Constructor.
+   * 
    * @param sentDectModelUrl the URL of a sentence detection model
    */
   public SentDetector(String sentDectModelUrl) {
@@ -23,6 +24,7 @@ public class SentDetector {
 
    /**
    * Constructor.
+   * 
    * @param sentDectStream the input stream of the sentence detection model
    */
   public SentDetector(InputStream sentDectStream) {
@@ -31,6 +33,7 @@ public class SentDetector {
   
   /**
    * Get the sentence detector.
+   * 
    * @throws java.io.IOException if <code>sentDectModelUrl</code> or <code>sentDectStream</code> is invalid
    * @return a <code>opennlp.tools.sentdetect.SentenceDetectorME</code>
    */

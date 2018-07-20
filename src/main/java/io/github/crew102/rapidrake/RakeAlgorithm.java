@@ -20,12 +20,11 @@ import opennlp.tools.tokenize.WhitespaceTokenizer;
  * The logic/implementation of the Rapid Automatic Keyword Extraction (RAKE) algorithm. The class's API includes:
  * 
  * <ul>
- * <li> A constructor which initializes the algorithm's parameters (stored in a {@link RakeParams} object) as well as 
- *    the POS tagging and sentence detection models
+ * <li> A constructor which sets the algorithm's parameters (stored in a {@link RakeParams} object) and specifies the 
+ *      POS tagging and sentence detection models
  * <li> The {@link rake} method, which runs RAKE on a string
  * <li> The {@link getResult} method, which takes an array of {@link Keyword} objects and converts their relevant 
- *    instance variables to primitive arrays (i.e., to a {@link Result}). This allows the results to be easily pulled 
- *    out on the R side.
+ *      instance variables to primitive arrays
  * </ul> 
  * 
  * @author Chris Baker
@@ -37,15 +36,15 @@ public class RakeAlgorithm {
   private final SentenceDetectorME sentDetector;
   private static final SnowballStemmer stemmer = new SnowballStemmer(SnowballStemmer.ALGORITHM.ENGLISH);
   
-    /**
-     * Constructor.
-     *
-     * @param rakeParams the parameters that RAKE will use
-     * @param taggerModelUrl the URL of the trained POS tagging model
-     * @param sentDectModelUrl the URL of the trained sentence detection model
-     * @see RakeParams
-     * @throws java.io.IOException if either of the URL parameters are invalid
-     */
+  /**
+   * Constructor.
+   *
+   * @param rakeParams the parameters RAKE will use
+   * @param taggerModelUrl the URL of the trained POS tagging model
+   * @param sentDectModelUrl the URL of the trained sentence detection model
+   * @see RakeParams
+   * @throws java.io.IOException if either of the URLs are invalid
+   */
   public RakeAlgorithm(RakeParams rakeParams, String taggerModelUrl, String sentDectModelUrl) throws java.io.IOException {
     this.rakeParams = rakeParams;
     this.tagger = new Tagger(taggerModelUrl).getPosTagger();
@@ -55,7 +54,7 @@ public class RakeAlgorithm {
   /**
    * Constructor.
    *
-   * @param rakeParams the parameters that RAKE will use
+   * @param rakeParams the parameters RAKE will use
    * @param taggerStream the input stream of the POS tagging model
    * @param sentDectStream the input stream of the sentence detection model
    * @see RakeParams
@@ -67,14 +66,13 @@ public class RakeAlgorithm {
     this.sentDetector = new SentDetector(sentDectStream).getSentDetector();
   }
   
-    /**
-     * Run RAKE on a single string.
-     *
-     * @param txtEl a string with the text that you want to run RAKE on
-     * @return a data object containing the results of RAKE (the keywords in their full form and stemmed form, as 
-     *       well as their scores)
-     * @see Result
-     */
+  /**
+   * Run RAKE on a single string.
+   *
+   * @param txtEl a string with the text that you want to run RAKE on
+   * @return a data object containing the results of RAKE
+   * @see Result
+   */
   public Result rake(String txtEl) {
     String[] tokens = getTokens(txtEl);
     ArrayList<Keyword> keywords = idCandidateKeywords(tokens);
@@ -220,7 +218,7 @@ public class RakeAlgorithm {
    * Convert a list of keywords to a {@link Result}.
    * 
    * @param keywords a list of extracted keywords
-   * @return A data object containing the results of RAKE
+   * @return a data object containing the results of RAKE
    * @see Keyword
    * @see Result
    */

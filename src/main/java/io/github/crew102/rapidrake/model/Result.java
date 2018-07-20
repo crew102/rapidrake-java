@@ -5,9 +5,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- * A data object containing the results of running RAKE on a single document. After instantiating a Result, we pass a 
- * reference to the object to R, which then calls the object's three getters to pull out the various pieces of data as 
- * R vectors.
+ * A data object containing the results of running RAKE on a single document.
+ * results 
  */
 public class Result {
   
@@ -15,13 +14,13 @@ public class Result {
   private String[] stemmedKeywords;
   private float[] scores;
   
-    /**
-     * Constructor.
-     *
-     * @param fullKeywords an array of keywords that RAKE found in a document 
-     * @param stemmedKeywords the stemmed versions of <code>fullKeywords</code>
-     * @param scores the scores assigned to the keywords
-     */
+  /**
+   * Constructor.
+   *
+   * @param fullKeywords the keywords that RAKE found in the document 
+   * @param stemmedKeywords the stemmed versions of <code>fullKeywords</code>
+   * @param scores the scores assigned to the keywords
+   */
   public Result(String[] fullKeywords, String[] stemmedKeywords, float[] scores) {
     this.fullKeywords = fullKeywords;
     this.stemmedKeywords = stemmedKeywords;
@@ -41,7 +40,7 @@ public class Result {
 
   /**
   * Return a description of the Result. The Result is shown in the following format:
-  * "[keyword1 (score of keyword1), keyword2 (score of keyword2)].
+  * [keyword1 (score of keyword1), keyword2 (score of keyword2)].
   */
   @Override 
   public String toString() {
@@ -58,7 +57,8 @@ public class Result {
   
   /**
   * Remove duplicate keywords.
-  * @return A Result object with duplicate keywords removed 
+  * 
+  * @return a Result object with duplicate keywords removed 
   */
   public Result distinct() {
         

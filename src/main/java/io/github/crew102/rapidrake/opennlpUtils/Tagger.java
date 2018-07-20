@@ -15,6 +15,7 @@ public class Tagger {
 
   /**
    * Constructor.
+   * 
    * @param taggerModelUrl the URL of a POS tagging model
    */
   public Tagger(String taggerModelUrl) {
@@ -23,6 +24,7 @@ public class Tagger {
 
    /**
    * Constructor.
+   * 
    * @param taggerStream the input stream of the POS tagging model
    */
   public Tagger(InputStream taggerStream) {
@@ -31,6 +33,7 @@ public class Tagger {
 
   /**
    * Get the POS tagger.
+   * 
    * @throws java.io.IOException if <code>inputString</code> or <code>taggerStream</code> is invalid
    * @return a <code>opennlp.tools.postag.POSTaggerME</code>
    */

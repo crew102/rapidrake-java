@@ -2,8 +2,7 @@ package io.github.crew102.rapidrake.data;
 
 /**
  * A data object containing the SMART information retrieval system stop words. See 
- * <a href="https://rdrr.io/rforge/tm/man/stopwords.html">https://rdrr.io/rforge/tm/man/stopwords.html</a> for more 
- * details.
+ * <a href="https://rdrr.io/rforge/tm/man/stopwords.html">https://rdrr.io/rforge/tm/man/stopwords.html</a> for details.
  */
 public class SmartWords {
   
