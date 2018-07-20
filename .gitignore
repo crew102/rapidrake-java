@@ -1,7 +1,9 @@
-target/
-model-bin/
 .classpath
 .project
 .settings/
 .Rproj.user
+TODO.md
+rapidrake-java.Rproj
 doc/
+model-bin/
+target/
