@@ -34,29 +34,29 @@ import io.github.crew102.rapidrake.model.Result;
 
 public class Example {
 
-	public static void main(String[] args) throws java.io.IOException {
-		
-		// Create a parameter object. See the RakeParams docs for details.
-		String[] stopWords = new SmartWords().getSmartWords(); 
-		String[] stopPOS = {"VB", "VBD", "VBG", "VBN", "VBP", "VBZ"}; 
-		int minWordChar = 1;
-		boolean shouldStem = true;
-		String phraseDelims = "[-,.?():;\"!/]";	
-		RakeParams params = new RakeParams(stopWords, stopPOS, minWordChar, shouldStem, phraseDelims);
-		
-		// Create a RakeAlgorithm object
-		String POStaggerURL = "model-bin/en-pos-maxent.bin"; // The path to your POS tagging model
-		String SentDetecURL = "model-bin/en-sent.bin"; // The path to your sentence detection model
-		RakeAlgorithm rakeAlg = new RakeAlgorithm(params, POStaggerURL, SentDetecURL);
-		
-		// Call the rake method
-		String txt = "dogs are great, don't you agree? I love dogs, especially big dogs";
-		Result result = rakeAlg.rake(txt);
-		
-		// Print the result
-		System.out.println(result.distinct());
-		
-	}
+  public static void main(String[] args) throws java.io.IOException {
+    
+    // Create a parameter object. See the RakeParams docs for details.
+    String[] stopWords = new SmartWords().getSmartWords(); 
+    String[] stopPOS = {"VB", "VBD", "VBG", "VBN", "VBP", "VBZ"}; 
+    int minWordChar = 1;
+    boolean shouldStem = true;
+    String phraseDelims = "[-,.?():;\"!/]"; 
+    RakeParams params = new RakeParams(stopWords, stopPOS, minWordChar, shouldStem, phraseDelims);
+    
+    // Create a RakeAlgorithm object
+    String POStaggerURL = "model-bin/en-pos-maxent.bin"; // The path to your POS tagging model
+    String SentDetecURL = "model-bin/en-sent.bin"; // The path to your sentence detection model
+    RakeAlgorithm rakeAlg = new RakeAlgorithm(params, POStaggerURL, SentDetecURL);
+    
+    // Call the rake method
+    String txt = "dogs are great, don't you agree? I love dogs, especially big dogs";
+    Result result = rakeAlg.rake(txt);
+    
+    // Print the result
+    System.out.println(result.distinct());
+    
+  }
 }
 
 // [dogs (1.33), great (1), big dogs (3.33)]
