@@ -7,3 +7,4 @@ rapidrake-java.Rproj
 doc/
 model-bin/
 target/
+/bin/
