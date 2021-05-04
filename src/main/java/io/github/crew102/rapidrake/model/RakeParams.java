@@ -48,7 +48,7 @@ public class RakeParams {
   public boolean shouldStem() {
     return stem;
   }
-  public String getPhraseDelmins() {
+  public String getPhraseDelims() {
     return phraseDelims;
   }
 
