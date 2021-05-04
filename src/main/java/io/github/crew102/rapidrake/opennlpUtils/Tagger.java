@@ -2,6 +2,7 @@ package io.github.crew102.rapidrake.opennlpUtils;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
+
 import opennlp.tools.postag.POSModel;
 import opennlp.tools.postag.POSTaggerME;
 

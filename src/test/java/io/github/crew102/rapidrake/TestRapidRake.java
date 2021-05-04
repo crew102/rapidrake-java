@@ -1,15 +1,14 @@
 package io.github.crew102.rapidrake;
 
-import static org.junit.Assert.*;
+import java.util.Arrays;
 
-import io.github.crew102.rapidrake.data.SmartWords;
+import static org.junit.Assert.*;
 import org.junit.Test;
-import io.github.crew102.rapidrake.RakeAlgorithm;
-import io.github.crew102.rapidrake.model.*;
 
 import opennlp.tools.stemmer.snowball.SnowballStemmer;
 
-import java.util.Arrays;
+import io.github.crew102.rapidrake.data.SmartWords;
+import io.github.crew102.rapidrake.model.*;
 
 public class TestRapidRake {
   

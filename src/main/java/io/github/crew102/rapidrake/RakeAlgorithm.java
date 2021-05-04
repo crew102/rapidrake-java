@@ -7,14 +7,14 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import io.github.crew102.rapidrake.model.*;
-import io.github.crew102.rapidrake.opennlpUtils.SentDetector;
-import io.github.crew102.rapidrake.opennlpUtils.Tagger;
-
 import opennlp.tools.postag.POSTaggerME;
 import opennlp.tools.sentdetect.SentenceDetectorME;
 import opennlp.tools.stemmer.snowball.SnowballStemmer;
 import opennlp.tools.tokenize.WhitespaceTokenizer;
+
+import io.github.crew102.rapidrake.model.*;
+import io.github.crew102.rapidrake.opennlpUtils.SentDetector;
+import io.github.crew102.rapidrake.opennlpUtils.Tagger;
 
 /**
  * The logic/implementation of the Rapid Automatic Keyword Extraction (RAKE) algorithm. The class's API includes:

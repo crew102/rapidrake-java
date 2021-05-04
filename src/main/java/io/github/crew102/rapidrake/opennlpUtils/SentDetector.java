@@ -2,6 +2,7 @@ package io.github.crew102.rapidrake.opennlpUtils;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
+
 import opennlp.tools.sentdetect.SentenceModel;
 import opennlp.tools.sentdetect.SentenceDetectorME;
 
@@ -60,5 +61,5 @@ public class SentDetector {
     }
     return new SentenceDetectorME(modelIn);
   }
-    
+
 }
