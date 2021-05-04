@@ -34,7 +34,6 @@ public class RakeAlgorithm {
   private final RakeParams rakeParams;
   private final POSTaggerME tagger;
   private final SentenceDetectorME sentDetector;
-  private static final SnowballStemmer stemmer = new SnowballStemmer(SnowballStemmer.ALGORITHM.ENGLISH);
   
   /**
    * Constructor.
@@ -122,6 +121,7 @@ public class RakeAlgorithm {
     String cleanedTxt = collapseTokens(tokens);
     String[] aryKey = cleanedTxt.split(rakeParams.getPhraseDelims());
     Pattern anyWordChar = Pattern.compile("[a-z]");
+    SnowballStemmer stemmer = new SnowballStemmer(rakeParams.getStemmerLang());
     
     for (int i = 0; i < aryKey.length; i++) {
       String oneKey = aryKey[i];

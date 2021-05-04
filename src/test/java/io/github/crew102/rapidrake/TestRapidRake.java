@@ -1,9 +1,15 @@
 package io.github.crew102.rapidrake;
 
 import static org.junit.Assert.*;
+
+import io.github.crew102.rapidrake.data.SmartWords;
 import org.junit.Test;
 import io.github.crew102.rapidrake.RakeAlgorithm;
 import io.github.crew102.rapidrake.model.*;
+
+import opennlp.tools.stemmer.snowball.SnowballStemmer;
+
+import java.util.Arrays;
 
 public class TestRapidRake {
   
@@ -104,5 +110,24 @@ public class TestRapidRake {
       
       assertEquals(2, keys.length, 0);
      }
+
+    @Test
+    public void testStemmerLang() throws java.io.IOException {
+
+      String[] stopWords = new SmartWords().getSmartWords();
+      String[] stopPOS = {"VB", "VBD", "VBG", "VBN", "VBP", "VBZ"};
+      String txtEl = "dependent dogs. dependable dogs";
+
+      RakeParams params = new RakeParams(stopWords, stopPOS, 0, true, delims);
+      RakeAlgorithm alg = new RakeAlgorithm(params, posUrl, sentUrl);
+      Result res = alg.rake(txtEl);
+
+      RakeParams frenchStem = new RakeParams(stopWords, stopPOS, 0, true, delims,
+                                             SnowballStemmer.ALGORITHM.FRENCH);
+      RakeAlgorithm frenchAlg = new RakeAlgorithm(frenchStem, posUrl, sentUrl);
+      Result frenchRes = frenchAlg.rake(txtEl);
+
+      assertFalse(Arrays.equals(res.getStemmedKeywords(), frenchRes.getStemmedKeywords()));
+    }
    
 }
