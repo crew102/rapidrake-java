@@ -10,4 +10,5 @@ clean:
 	rm -rf target
 
 deploy:
-	mvn clean deploy
+	mvn clean deploy -P deploy-env
+
