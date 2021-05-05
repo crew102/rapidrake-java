@@ -53,7 +53,7 @@ public class Example {
     String txt = "dogs are great, don't you agree? I love dogs, especially big dogs";
     Result result = rakeAlg.rake(txt);
     
-    // Print the result
+    // Print the resulting keywords (not stemmed)
     System.out.println(result.distinct());
     
   }
