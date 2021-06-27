@@ -3,7 +3,7 @@ rapidrake
 
 > A fast version of the Rapid Automatic Keyword Extraction (RAKE) algorithm
 
-[![Linux Build Status](https://travis-ci.org/crew102/rapidrake-java.svg?branch=master)](https://travis-ci.org/crew102/rapidrake-java)
+[![CI build](https://github.com/crew102/rapidrake-java/actions/workflows/ci-build.yml/badge.svg)](https://github.com/crew102/rapidrake-java/actions/workflows/ci-build.yml)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.crew102/rapidrake/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.crew102/rapidrake)
 
 Installation

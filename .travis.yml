@@ -1,8 +1,0 @@
-language: java
-
-before_install: 
-  - sudo apt-get update
-  - sudo apt-get install -y --no-install-recommends wget
-  - mkdir model-bin
-  - wget -P model-bin http://opennlp.sourceforge.net/models-1.5/en-sent.bin
-  - wget -P model-bin http://opennlp.sourceforge.net/models-1.5/en-pos-maxent.bin
