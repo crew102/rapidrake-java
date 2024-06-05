@@ -98,7 +98,7 @@ public class Example {
     String POStaggerURL = "model-bin/en-pos-maxent.bin"; // The path to your POS tagging model
     String SentDetectURL = "model-bin/en-sent.bin"; // The path to your sentence detection model
 
-    // create the required model classes, you can cache this instances in a singleton
+    // create the required model classes, you can cache these instances in a singleton
     POSTaggerME tagger = new Tagger(POStaggerURL).getPosTagger();
     SentenceDetectorME sentDetect = new SentDetector(SentDetectURL).getSentDetector();
 
