@@ -46,8 +46,64 @@ public class Example {
     
     // Create a RakeAlgorithm object
     String POStaggerURL = "model-bin/en-pos-maxent.bin"; // The path to your POS tagging model
-    String SentDetecURL = "model-bin/en-sent.bin"; // The path to your sentence detection model
-    RakeAlgorithm rakeAlg = new RakeAlgorithm(params, POStaggerURL, SentDetecURL);
+    String SentDetectURL = "model-bin/en-sent.bin"; // The path to your sentence detection model
+    RakeAlgorithm rakeAlg = new RakeAlgorithm(params, POStaggerURL, SentDetectURL);
+    
+    // Call the rake method
+    String txt = "dogs are great, don't you agree? I love dogs, especially big dogs";
+    Result result = rakeAlg.rake(txt);
+    
+    // Print the resulting keywords (not stemmed)
+    System.out.println(result.distinct());
+    
+  }
+}
+
+// [dogs (1.33), great (1), big dogs (3.33)]
+```
+
+Advanced Usage
+--------------
+The process of initializing the OpenNLP models is time consuming, because of this creating instances of `RakeAlgorithm`
+can be expensive when you pass in the file paths to the constructor. 
+
+If you plan on creating many `RakeAlgorithm` instances, you can speed up the construction by instances of the POS and
+Sentence Detection objects. The following shows how you can create instances of the require model objects, so that you
+can cache the instances and re-use them.
+
+
+```java
+import io.github.crew102.rapidrake.RakeAlgorithm;
+import io.github.crew102.rapidrake.data.SmartWords;
+import io.github.crew102.rapidrake.model.RakeParams;
+import io.github.crew102.rapidrake.model.Result;
+import io.github.crew102.rapidrake.opennlpUtils.Tagger;
+import io.github.crew102.rapidrake.opennlpUtils.SentDetector;
+import opennlp.tools.postag.POSTaggerME;
+import opennlp.tools.sentdetect.SentenceDetectorME;
+
+public class Example {
+
+  public static void main(String[] args) throws java.io.IOException {
+    
+    // Create an object to hold algorithm parameters
+    String[] stopWords = new SmartWords().getSmartWords(); 
+    String[] stopPOS = {"VB", "VBD", "VBG", "VBN", "VBP", "VBZ"}; 
+    int minWordChar = 1;
+    boolean shouldStem = true;
+    String phraseDelims = "[-,.?():;\"!/]"; 
+    RakeParams params = new RakeParams(stopWords, stopPOS, minWordChar, shouldStem, phraseDelims);
+    
+    // Create a RakeAlgorithm object
+    String POStaggerURL = "model-bin/en-pos-maxent.bin"; // The path to your POS tagging model
+    String SentDetectURL = "model-bin/en-sent.bin"; // The path to your sentence detection model
+
+    // create the required model classes, you can cache this instances in a singleton
+    POSTaggerME tagger = new Tagger(POStaggerURL).getPosTagger();
+    SentenceDetectorME sentDetect = new SentDetector(SentDetectURL).getSentDetector();
+
+    // now creating an instance of the RakeAlgorithm is fast
+    RakeAlgorithm rakeAlg = new RakeAlgorithm(params, tagger, sentDetect);
     
     // Call the rake method
     String txt = "dogs are great, don't you agree? I love dogs, especially big dogs";
