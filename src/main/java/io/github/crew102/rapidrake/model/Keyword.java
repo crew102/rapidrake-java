@@ -66,8 +66,7 @@ public class Keyword {
     }
     
     float sum = 0;
-    for (int i = 0; i < ary.length; i++) {
-      String oneToken = ary[i];
+    for (String oneToken : ary) {
       float val = scoreVec.get(oneToken);
       sum = val + sum;
     }

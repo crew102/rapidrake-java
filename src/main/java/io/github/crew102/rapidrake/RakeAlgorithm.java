@@ -170,34 +170,32 @@ public class RakeAlgorithm {
      Map<String, Integer> wordfreq = new HashMap<String, Integer>();
      Map<String, Integer> worddegTemp = new HashMap<String, Integer>();
      Map<String, Float> tokenScores = new HashMap<String, Float>();
-     
-     for (int i = 0; i < candidateKeywords.size(); i++) {
-       
-       Keyword oneKey = candidateKeywords.get(i);
-       String[] keysTokens;
-       
-       if (rakeParams.shouldStem()) {
-         keysTokens = oneKey.getKeyStemmedAry();
-       } else {
-         keysTokens = oneKey.getKeyStringAry();
-       }
-       
-       for (int z = 0; z < keysTokens.length; z++) {
-         
-         String aTok = keysTokens[z];
-         int degTe = keysTokens.length - 1;
-         
-         if (!wordfreq.containsKey(aTok)) {
-           wordfreq.put(aTok, 1);
-           worddegTemp.put(aTok, degTe);
-         } else {
-           int valu2 = wordfreq.get(aTok) + 1;
-           wordfreq.replace(aTok, valu2);
-           int repdeg = worddegTemp.get(aTok) + degTe;
-           worddegTemp.replace(aTok, repdeg);
-         }
-       }
-     }
+
+    for (Keyword oneKey : candidateKeywords) {
+
+      String[] keysTokens;
+
+      if (rakeParams.shouldStem()) {
+        keysTokens = oneKey.getKeyStemmedAry();
+      } else {
+        keysTokens = oneKey.getKeyStringAry();
+      }
+
+      for (String aTok : keysTokens) {
+
+        int degTe = keysTokens.length - 1;
+
+        if (!wordfreq.containsKey(aTok)) {
+          wordfreq.put(aTok, 1);
+          worddegTemp.put(aTok, degTe);
+        } else {
+          int valu2 = wordfreq.get(aTok) + 1;
+          wordfreq.replace(aTok, valu2);
+          int repdeg = worddegTemp.get(aTok) + degTe;
+          worddegTemp.replace(aTok, repdeg);
+        }
+      }
+    }
 
      for (Map.Entry<String, Integer> entry : wordfreq.entrySet()) {
        String aKey = entry.getKey();
@@ -205,11 +203,10 @@ public class RakeAlgorithm {
        float val = (worddegTemp.get(aKey) + freq) / freq;
        tokenScores.put(aKey, val);
     }
-     
-     for (int i = 0; i < candidateKeywords.size(); i++) {
-       Keyword oneKey = candidateKeywords.get(i);
-       oneKey.sumScore(tokenScores, rakeParams);
-     }
+
+    for (Keyword oneKey : candidateKeywords) {
+      oneKey.sumScore(tokenScores, rakeParams);
+    }
      
      return candidateKeywords;
   }
