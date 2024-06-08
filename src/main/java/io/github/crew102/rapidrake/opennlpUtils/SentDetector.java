@@ -41,7 +41,7 @@ public class SentDetector {
   public SentenceDetectorME getSentDetector() throws java.io.IOException {
     
     InputStream inStream = sentDectStream;
-    SentenceModel modelIn = null;
+    SentenceModel modelIn;
     
     try {
       if (sentDectModelUrl != null) {

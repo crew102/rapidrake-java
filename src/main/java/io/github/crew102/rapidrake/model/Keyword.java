@@ -7,8 +7,8 @@ import java.util.Map;
  */
 public class Keyword {
     
-  private String keyString; 
-  private String[] keyStringAry; 
+  private final String keyString;
+  private final String[] keyStringAry;
   private String[] keyStemmedStringAry; 
   private String keyStemmedString; 
   private float score;
