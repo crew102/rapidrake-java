@@ -66,35 +66,33 @@ public class RakeAlgorithm {
   }
 
   /**
-   * Constructor.
+   * Constructor. See below for example usage. Use this constructor if you want
+   * to avoid the overhead of creating the POS tagger and sentence detector
+   * models each time you create a new instance of RakeAlgorithm.
+   *
+   * <pre>
+   * String POStaggerURL = "model-bin/en-pos-maxent.bin";
+   * String SentDetectURL = "model-bin/en-sent.bin";
+   *
+   * // create the required model classes, you can cache these instances in a singleton
+   * POSTaggerME tagger = new Tagger(POStaggerURL).getPosTagger();
+   * SentenceDetectorME sentDetect = new SentDetector(SentDetectURL).getSentDetector();
+   *
+   * // now creating an instance of the RakeAlgorithm is fast
+   * RakeAlgorithm rakeAlg = new RakeAlgorithm(params, tagger, sentDetect);
+   * </pre>
    *
    * @param rakeParams the parameters RAKE will use
-   * @param tagger An instance of opennlp.tools.postag.POSTaggerME.
-   * @param sentDetector An instance of opennlp.tools.sentdetect.SentenceDetectorME.
+   * @param posTaggerME An instance of opennlp.tools.postag.POSTaggerME.
+   * @param sentDetectorME An instance of opennlp.tools.sentdetect.SentenceDetectorME.
    * @see RakeParams
-   * @throws java.io.IOException if either of the input streams are invalid
    */
-  public RakeAlgorithm(RakeParams rakeParams, POSTaggerME posTaggerMEInstance, SentenceDetectorME sentDetectorMEInstance) throws java.io.IOException {
+  public RakeAlgorithm(RakeParams rakeParams, POSTaggerME posTaggerME, SentenceDetectorME sentDetectorME) {
     this.rakeParams = rakeParams;
-    this.tagger = posTaggerMEInstance;
-    this.sentDetector = sentDetectorMEInstance;
+    this.tagger = posTaggerME;
+    this.sentDetector = sentDetectorME;
   }
 
-  /**
-   * Constructor.
-   *
-   * @param rakeParams the parameters RAKE will use
-   * @param taggerInstance An instance of io.github.crew102.rapidrake.opennlpUtils.Tagger.
-   * @param sentDectInstance An instance of io.github.crew102.rapidrake.opennlpUtils.SentDetector.
-   * @see RakeParams
-   * @throws java.io.IOException if either of the input streams are invalid
-   */
-  public RakeAlgorithm(RakeParams rakeParams, Tagger taggerInstance, SentDetector sentDectInstance) throws java.io.IOException {
-    this.rakeParams = rakeParams;
-    this.tagger = taggerInstance.getPosTagger();
-    this.sentDetector = sentDectInstance.getSentDetector();
-  }
-  
   /**
    * Run RAKE on a single string.
    *
@@ -118,8 +116,7 @@ public class RakeAlgorithm {
     Pattern anyWordChar = Pattern.compile("[a-z]");
     
     String[] sents;
-
-    // IMPORTANT - SentenceDetectorME is not thread safe
+    // Make sure that the tagger is thread safe
     synchronized(sentDetector){
       sents = sentDetector.sentDetect(txtPadded);
     }
@@ -131,8 +128,7 @@ public class RakeAlgorithm {
       String[] tokenArray = wsTokenizer.tokenize(sentence);
 
       String[] tags;
-      
-      // IMPORTANT - POSTaggerME is not thread safe
+      // Make sure that the tagger is thread safe
       synchronized(tagger){
         tags = tagger.tag(tokenArray);
       }
