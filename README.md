@@ -45,9 +45,12 @@ public class Example {
     RakeParams params = new RakeParams(stopWords, stopPOS, minWordChar, shouldStem, phraseDelims);
     
     // Create a RakeAlgorithm object
+    // You can use the RakeAlgorithm(RakeParams, POSTaggerME, SentenceDetectorME)
+    // constructor instead of the one shown below if you want to pass in 
+    // pre-initialized opennlp models.  
     String POStaggerURL = "model-bin/en-pos-maxent.bin"; // The path to your POS tagging model
-    String SentDetecURL = "model-bin/en-sent.bin"; // The path to your sentence detection model
-    RakeAlgorithm rakeAlg = new RakeAlgorithm(params, POStaggerURL, SentDetecURL);
+    String SentDetectURL = "model-bin/en-sent.bin"; // The path to your sentence detection model
+    RakeAlgorithm rakeAlg = new RakeAlgorithm(params, POStaggerURL, SentDetectURL);
     
     // Call the rake method
     String txt = "dogs are great, don't you agree? I love dogs, especially big dogs";

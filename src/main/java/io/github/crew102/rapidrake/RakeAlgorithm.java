@@ -64,7 +64,35 @@ public class RakeAlgorithm {
     this.tagger = new Tagger(taggerStream).getPosTagger();
     this.sentDetector = new SentDetector(sentDectStream).getSentDetector();
   }
-  
+
+  /**
+   * Constructor. See below for example usage. Use this constructor if you want
+   * to avoid the overhead of creating the POS tagger and sentence detector
+   * models each time you create a new instance of RakeAlgorithm.
+   *
+   * <pre>
+   * String POStaggerURL = "model-bin/en-pos-maxent.bin";
+   * String SentDetectURL = "model-bin/en-sent.bin";
+   *
+   * // create the required model classes, you can cache these instances in a singleton
+   * POSTaggerME tagger = new Tagger(POStaggerURL).getPosTagger();
+   * SentenceDetectorME sentDetect = new SentDetector(SentDetectURL).getSentDetector();
+   *
+   * // now creating an instance of the RakeAlgorithm is fast
+   * RakeAlgorithm rakeAlg = new RakeAlgorithm(params, tagger, sentDetect);
+   * </pre>
+   *
+   * @param rakeParams the parameters RAKE will use
+   * @param posTaggerME An instance of opennlp.tools.postag.POSTaggerME.
+   * @param sentDetectorME An instance of opennlp.tools.sentdetect.SentenceDetectorME.
+   * @see RakeParams
+   */
+  public RakeAlgorithm(RakeParams rakeParams, POSTaggerME posTaggerME, SentenceDetectorME sentDetectorME) {
+    this.rakeParams = rakeParams;
+    this.tagger = posTaggerME;
+    this.sentDetector = sentDetectorME;
+  }
+
   /**
    * Run RAKE on a single string.
    *
@@ -87,12 +115,23 @@ public class RakeAlgorithm {
     ArrayList<String> tokenList = new ArrayList<String>();
     Pattern anyWordChar = Pattern.compile("[a-z]");
     
-    String[] sents = sentDetector.sentDetect(txtPadded);
+    String[] sents;
+    // Make sure that the tagger is thread safe
+    synchronized(sentDetector){
+      sents = sentDetector.sentDetect(txtPadded);
+    }
+
+    WhitespaceTokenizer wsTokenizer = WhitespaceTokenizer.INSTANCE;
         
     for (String sentence : sents) {
       
-      String[] tokenArray = WhitespaceTokenizer.INSTANCE.tokenize(sentence);
-      String[] tags = tagger.tag(tokenArray);
+      String[] tokenArray = wsTokenizer.tokenize(sentence);
+
+      String[] tags;
+      // Make sure that the tagger is thread safe
+      synchronized(tagger){
+        tags = tagger.tag(tokenArray);
+      }
       
       for (int i = 0; i < tokenArray.length; i++) {
         
