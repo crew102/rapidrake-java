@@ -7,8 +7,8 @@ import java.util.Map;
  */
 public class Keyword {
     
-  private String keyString; 
-  private String[] keyStringAry; 
+  private final String keyString;
+  private final String[] keyStringAry;
   private String[] keyStemmedStringAry; 
   private String keyStemmedString; 
   private float score;
@@ -66,8 +66,7 @@ public class Keyword {
     }
     
     float sum = 0;
-    for (int i = 0; i < ary.length; i++) {
-      String oneToken = ary[i];
+    for (String oneToken : ary) {
       float val = scoreVec.get(oneToken);
       sum = val + sum;
     }
