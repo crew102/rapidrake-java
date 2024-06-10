@@ -6,9 +6,13 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import opennlp.tools.stemmer.snowball.SnowballStemmer;
+import opennlp.tools.postag.POSTaggerME;
+import opennlp.tools.sentdetect.SentenceDetectorME;
 
 import io.github.crew102.rapidrake.data.SmartWords;
 import io.github.crew102.rapidrake.model.*;
+import io.github.crew102.rapidrake.opennlpUtils.Tagger;
+import io.github.crew102.rapidrake.opennlpUtils.SentDetector;
 
 public class TestRapidRake {
 
@@ -124,7 +128,35 @@ public class TestRapidRake {
     RakeAlgorithm frenchAlg = new RakeAlgorithm(frenchStem, posUrl, sentUrl);
     Result frenchRes = frenchAlg.rake(txtEl);
 
-    assertFalse(Arrays.equals(res.getStemmedKeywords(), frenchRes.getStemmedKeywords()));
+      assertFalse(Arrays.equals(res.getStemmedKeywords(), frenchRes.getStemmedKeywords()));
+    }
+
+  @Test
+  public void testSecondaryConstructor() throws java.io.IOException {
+
+    String[] stopWords = {""};
+    String[] stopPOS = {""};
+    RakeParams params = new RakeParams(stopWords, stopPOS, 0, false, delims);
+    // create the required model classes, you can cache these instances in a singleton
+    POSTaggerME tagger = new Tagger(posUrl).getPosTagger();
+    SentenceDetectorME sentDetect = new SentDetector(sentUrl).getSentDetector();
+
+    RakeAlgorithm minRakeAlg = new RakeAlgorithm(params, tagger, sentDetect);
+    Result aRes = minRakeAlg.rake("here is some text");
+    String[] keys = aRes.getFullKeywords();
+    float[] scores = aRes.getScores();
+
+    assertEquals("here is some text", keys[0]);
+    assertEquals("Incorrect scoring", 16, scores[0], 0);
+
+    Result res2 = minRakeAlg.rake("also, here is some more. text.");
+    String[] keys2 = res2.getFullKeywords();
+    float[] scores2 = res2.getScores();
+
+    assertEquals("also", keys2[0]);
+    assertEquals("here is some more", keys2[1]);
+    assertEquals("text", keys2[2]);
+    assertEquals("Incorrect scoring", 1, scores2[0], 0);
   }
 
 }
